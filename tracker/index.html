@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Score Tracker: CompTIA Security+ SY0-801 Exam Prep</title>
+<style>
+
+:root{--ink:#14213d;--muted:#5b6475;--bg:#f6f7fb;--card:#fff;--line:#d9dde7;--accent:#0f766e;--accent2:#e9f5f3;--warn:#b45309;--bad:#b42318;--good:#067647;--flag:#7c3aed}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+header{background:var(--ink);color:#fff;padding:12px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:sticky;top:0;z-index:5}
+header h1{font-size:17px;margin:0;font-weight:650;flex:1;min-width:200px}
+#clock{font:600 20px/1 ui-monospace,Consolas,monospace;padding:6px 10px;border-radius:8px;background:#ffffff1a}
+#clock.low{background:var(--warn)}
+main{max-width:980px;margin:0 auto;padding:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px}
+h2{font-size:22px;margin:0 0 10px}
+h3{font-size:17px;margin:18px 0 8px}
+button{font:inherit;border-radius:8px;border:1px solid var(--line);background:#fff;color:var(--ink);padding:9px 14px;cursor:pointer}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+button:disabled{opacity:.45;cursor:default}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #0f766e66;outline-offset:2px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.mode{border:1px solid var(--line);border-radius:12px;padding:16px;background:#fff}
+.mode h3{margin-top:0}
+.muted{color:var(--muted);font-size:14px}
+select,input[type=number]{font:inherit;padding:7px 9px;border-radius:8px;border:1px solid var(--line);background:#fff}
+.qhead{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:14px;margin-bottom:8px}
+.stem{font-size:17px;margin:0 0 14px}
+.opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0;cursor:pointer;background:#fff}
+.opt:hover{border-color:var(--accent)}
+.opt input{margin-top:5px}
+.opt.right{border-color:var(--good);background:#ecfdf3}
+.opt.wrong{border-color:var(--bad);background:#fef3f2}
+.why{font-size:14.5px;margin:4px 0 0}
+table{border-collapse:collapse;width:100%;margin:8px 0;font-size:15px}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:#eef1f7}
+.pbqsel{min-width:150px;margin:2px 0}
+.part-ok{color:var(--good);font-weight:600}.part-bad{color:var(--bad);font-weight:600}
+.nav{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.nav button{width:42px;padding:6px 0;font-size:14px}
+.nav .ans{background:var(--accent2);border-color:var(--accent)}
+.nav .cur{outline:3px solid var(--ink)}
+.nav .flg{box-shadow:inset 0 -4px 0 var(--flag)}
+.badge{display:inline-block;font-size:12.5px;padding:2px 8px;border-radius:99px;background:#eef1f7;color:var(--ink)}
+.flagged{background:#f3e8ff;color:var(--flag)}
+.bar{height:10px;background:#eef1f7;border-radius:99px;overflow:hidden;min-width:120px}
+.bar span{display:block;height:100%;background:var(--accent)}
+.bar span.low{background:var(--warn)}
+.verdict{font-weight:700}
+.right-t{color:var(--good)}.wrong-t{color:var(--bad)}
+footer{max-width:980px;margin:0 auto;padding:10px 18px 30px;color:var(--muted);font-size:13px}
+.hidden{display:none}
+.explain{border-left:4px solid var(--accent);background:var(--accent2);padding:10px 12px;border-radius:0 8px 8px 0;margin-top:12px}
+@media (max-width:600px){main{padding:10px}.card{padding:14px}header h1{font-size:15px}.nav button{width:38px}}
+select{max-width:100%}
+
+.print-only{display:none}
+@media print{header,footer .noprint,.noprint,button{display:none!important}body{background:#fff;font-size:11pt}main{max-width:none;padding:0}.card{border:none;padding:0;margin:0 0 8pt}.print-only{display:block}table{font-size:9.5pt}th,td{padding:3pt 5pt}tr{break-inside:avoid}h2{font-size:15pt}}
+table{display:table}
+select{max-width:100%}
+.row>label{min-width:0;max-width:100%}
+@media (max-width:600px){.wide{display:block;overflow-x:auto}}
+.fc{min-height:220px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border:1px solid var(--line);border-radius:14px;background:#fff;padding:22px;cursor:pointer;user-select:none}
+.fc .term{font-size:30px;font-weight:700}.fc .exp{font-size:19px;font-weight:600;margin-bottom:8px}.fc .meaning{font-size:16.5px;max-width:560px}
+.tick{display:flex;gap:10px;align-items:flex-start;padding:6px 0;border-bottom:1px solid #eef1f7}.tick input{margin-top:5px;width:18px;height:18px}
+.done{color:var(--muted);text-decoration:line-through}
+.pdfs,.toplink{margin:8px 0}.pdfs a,.toplink a{color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.grid a{display:block;border:1px solid var(--line);border-radius:12px;padding:14px;background:#fff;color:var(--ink);text-decoration:none}
+.grid a:hover{border-color:var(--accent)}
+
+</style>
+</head>
+<body>
+<header><h1>Score Tracker<br><span style="font-weight:400;font-size:13px;opacity:.85">CompTIA Security+ SY0-801 Exam Prep 2027 and 2028, by Michael J. Tremeer</span></h1></header>
+<main id="app">
+<p class="print-only muted">CompTIA Security+ SY0-801 Exam Prep 2027 and 2028, by Michael J. Tremeer</p>
+<div class="card noprint"><h2>Score tracker</h2><p>Enter your correct answers by domain after each practice exam (Exams 1 to 5 in the book, bonus Exams 6 to 10 in the free PDF), or let the Online Exam Simulator save your results in this browser. The chart shows each domain against the 80% working rule from the book's score guides.</p>
+<p class="muted">These are percentages of correct answers, not the exam owner's scaled score of 100 to 900, which is calculated differently. The 80% line is our own working rule, not an official pass mark.</p>
+<h3>Add a practice exam</h3><div class="row"><label>Exam <select id="ex"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6 (bonus)</option><option value="7">7 (bonus)</option><option value="8">8 (bonus)</option><option value="9">9 (bonus)</option><option value="10">10 (bonus)</option></select></label><label>Date <input type="date" id="dt"></label></div>
+<table id="entry"></table><div class="row"><button class="primary" id="save">Save this exam</button><span id="msg" class="muted"></span></div></div>
+<div class="card"><h3>Your results</h3><div id="chart"></div><div id="list"></div><div class="row noprint"><button onclick="window.print()">Print</button><button id="clearAll">Delete all my entries</button></div></div>
+<div class="card print-only"><h3>Paper version</h3><table><tr><th>Domain</th><th>Questions</th><th>Exam 1</th><th>Exam 2</th><th>Exam 3</th><th>Exam 4</th><th>Exam 5</th><th>Chapters</th></tr>
+<tr><td>1. General Security Concepts</td><td>14</td><td></td><td></td><td></td><td></td><td></td><td>1 to 3</td></tr><tr><td>2. Threats, Vulnerabilities, and Attacks</td><td>22</td><td></td><td></td><td></td><td></td><td></td><td>4 to 9</td></tr><tr><td>3. Security Architecture</td><td>17</td><td></td><td></td><td></td><td></td><td></td><td>10 to 13</td></tr><tr><td>4. Security Operations</td><td>24</td><td></td><td></td><td></td><td></td><td></td><td>14 to 21</td></tr><tr><td>5. Security Program Management and Oversight</td><td>13</td><td></td><td></td><td></td><td></td><td></td><td>22 to 27</td></tr><tr><td>Total</td><td>90</td><td></td><td></td><td></td><td></td><td></td><td></td></tr></table></div>
+</main>
+<footer>Independent study material. Not affiliated with or endorsed by CompTIA. CompTIA and Security+ are trademarks of CompTIA.<span class="noprint"><br>Your progress stays in this browser only. Nothing is sent anywhere.</span></footer>
+<script>
+const store = {
+  get(k, d){ try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch(e){ return d; } },
+  set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
+};
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const DOMAINS = {"1":"General Security Concepts","2":"Threats, Vulnerabilities, and Attacks","3":"Security Architecture","4":"Security Operations","5":"Security Program Management and Oversight"};const MIX = {"1":14,"2":22,"3":17,"4":24,"5":13};
+const CH = {1:"1 to 3",2:"4 to 9",3:"10 to 13",4:"14 to 21",5:"22 to 27"}, W = {1:16,2:24,3:19,4:27,5:14};
+document.getElementById("dt").value = new Date().toISOString().slice(0, 10);
+document.getElementById("entry").innerHTML = "<tr><th>Domain</th><th>Questions</th><th>Your correct answers</th></tr>" + Object.keys(MIX).map(d => `<tr><td>${d}. ${DOMAINS[d]}</td><td>${MIX[d]}</td><td><input type="number" min="0" max="${MIX[d]}" data-d="${d}" style="width:90px"></td></tr>`).join("");
+function all(){
+  const mine = store.get("sy0801_tracker", []).map(e => ({...e, src: (+e.exam >= 6 ? "Bonus exam " : "Book exam ") + e.exam}));
+  const sim = store.get("sy0801_sim_history", []).map(e => ({date: e.date, src: "Simulator: " + e.mode, pct: e.pct, dom: e.dom}));
+  return mine.concat(sim).sort((a, b) => a.date < b.date ? -1 : 1);
+}
+document.getElementById("save").onclick = () => {
+  const dom = {}; let r = 0, ok = true;
+  document.querySelectorAll("#entry input").forEach(i => { const d = i.dataset.d, v = parseInt(i.value, 10); if (isNaN(v) || v < 0 || v > MIX[d]) ok = false; else { dom[d] = Math.round(100 * v / MIX[d]); r += v; } });
+  if (!ok){ document.getElementById("msg").textContent = "Enter a number from 0 to the number of questions for every domain."; return; }
+  const t = store.get("sy0801_tracker", []); t.push({exam: document.getElementById("ex").value, date: document.getElementById("dt").value, pct: Math.round(100 * r / 90), right: r, dom});
+  store.set("sy0801_tracker", t); document.getElementById("msg").textContent = `Saved: ${r} of 90 (${Math.round(100 * r / 90)}%).`; draw();
+};
+document.getElementById("clearAll").onclick = () => { if (confirmDel()) { store.set("sy0801_tracker", []); store.set("sy0801_sim_history", []); draw(); } };
+let armed = false; function confirmDel(){ if (armed) { armed = false; return true; } armed = true; document.getElementById("clearAll").textContent = "Press again to delete everything"; setTimeout(() => { armed = false; document.getElementById("clearAll").textContent = "Delete all my entries"; }, 4000); return false; }
+function draw(){
+  const E = all(), last = E[E.length - 1];
+  if (!E.length){ document.getElementById("chart").innerHTML = "<p class='muted'>No results yet.</p>"; document.getElementById("list").innerHTML = ""; return; }
+  let h = `<p>Latest: <strong>${esc(last.src)}</strong> on ${esc(last.date)}: <strong>${last.pct}%</strong> overall.</p><table><tr><th>Domain (weight)</th><th>Latest</th><th style="width:40%">Against 80%</th><th>To review</th></tr>`;
+  for (const d of Object.keys(MIX)){
+    const v = last.dom && last.dom[d] != null ? last.dom[d] : null;
+    h += `<tr><td>${d}. ${DOMAINS[d]} (${W[d]}%)</td><td>${v == null ? "None" : v + "%"}</td><td><div class="bar"><span class="${v != null && v < 80 ? "low" : ""}" style="width:${v || 0}%"></span></div></td><td>${v != null && v < 80 ? "Chapters " + CH[d] : "On target"}</td></tr>`;
+  }
+  h += "</table>"; document.getElementById("chart").innerHTML = h;
+  document.getElementById("list").innerHTML = "<h3>All results</h3><table><tr><th>Date</th><th>Source</th><th>Overall</th>" + Object.keys(MIX).map(d => `<th>D${d}</th>`).join("") + "</tr>" +
+    E.slice().reverse().map(e => `<tr><td>${esc(e.date)}</td><td>${esc(e.src)}</td><td>${e.pct}%</td>` + Object.keys(MIX).map(d => `<td>${e.dom && e.dom[d] != null ? e.dom[d] + "%" : ""}</td>`).join("") + "</tr>").join("") + "</table>";
+}
+draw();
+
+</script>
+</body>
+</html>
