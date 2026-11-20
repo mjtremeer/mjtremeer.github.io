@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Test-Day Checklist: CompTIA Security+ SY0-801 Exam Prep</title>
+<style>
+
+:root{--ink:#14213d;--muted:#5b6475;--bg:#f6f7fb;--card:#fff;--line:#d9dde7;--accent:#0f766e;--accent2:#e9f5f3;--warn:#b45309;--bad:#b42318;--good:#067647;--flag:#7c3aed}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+header{background:var(--ink);color:#fff;padding:12px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:sticky;top:0;z-index:5}
+header h1{font-size:17px;margin:0;font-weight:650;flex:1;min-width:200px}
+#clock{font:600 20px/1 ui-monospace,Consolas,monospace;padding:6px 10px;border-radius:8px;background:#ffffff1a}
+#clock.low{background:var(--warn)}
+main{max-width:980px;margin:0 auto;padding:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px}
+h2{font-size:22px;margin:0 0 10px}
+h3{font-size:17px;margin:18px 0 8px}
+button{font:inherit;border-radius:8px;border:1px solid var(--line);background:#fff;color:var(--ink);padding:9px 14px;cursor:pointer}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+button:disabled{opacity:.45;cursor:default}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #0f766e66;outline-offset:2px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.mode{border:1px solid var(--line);border-radius:12px;padding:16px;background:#fff}
+.mode h3{margin-top:0}
+.muted{color:var(--muted);font-size:14px}
+select,input[type=number]{font:inherit;padding:7px 9px;border-radius:8px;border:1px solid var(--line);background:#fff}
+.qhead{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:14px;margin-bottom:8px}
+.stem{font-size:17px;margin:0 0 14px}
+.opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0;cursor:pointer;background:#fff}
+.opt:hover{border-color:var(--accent)}
+.opt input{margin-top:5px}
+.opt.right{border-color:var(--good);background:#ecfdf3}
+.opt.wrong{border-color:var(--bad);background:#fef3f2}
+.why{font-size:14.5px;margin:4px 0 0}
+table{border-collapse:collapse;width:100%;margin:8px 0;font-size:15px}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:#eef1f7}
+.pbqsel{min-width:150px;margin:2px 0}
+.part-ok{color:var(--good);font-weight:600}.part-bad{color:var(--bad);font-weight:600}
+.nav{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.nav button{width:42px;padding:6px 0;font-size:14px}
+.nav .ans{background:var(--accent2);border-color:var(--accent)}
+.nav .cur{outline:3px solid var(--ink)}
+.nav .flg{box-shadow:inset 0 -4px 0 var(--flag)}
+.badge{display:inline-block;font-size:12.5px;padding:2px 8px;border-radius:99px;background:#eef1f7;color:var(--ink)}
+.flagged{background:#f3e8ff;color:var(--flag)}
+.bar{height:10px;background:#eef1f7;border-radius:99px;overflow:hidden;min-width:120px}
+.bar span{display:block;height:100%;background:var(--accent)}
+.bar span.low{background:var(--warn)}
+.verdict{font-weight:700}
+.right-t{color:var(--good)}.wrong-t{color:var(--bad)}
+footer{max-width:980px;margin:0 auto;padding:10px 18px 30px;color:var(--muted);font-size:13px}
+.hidden{display:none}
+.explain{border-left:4px solid var(--accent);background:var(--accent2);padding:10px 12px;border-radius:0 8px 8px 0;margin-top:12px}
+@media (max-width:600px){main{padding:10px}.card{padding:14px}header h1{font-size:15px}.nav button{width:38px}}
+select{max-width:100%}
+
+.print-only{display:none}
+@media print{header,footer .noprint,.noprint,button{display:none!important}body{background:#fff;font-size:11pt}main{max-width:none;padding:0}.card{border:none;padding:0;margin:0 0 8pt}.print-only{display:block}table{font-size:9.5pt}th,td{padding:3pt 5pt}tr{break-inside:avoid}h2{font-size:15pt}}
+table{display:table}
+select{max-width:100%}
+.row>label{min-width:0;max-width:100%}
+@media (max-width:600px){.wide{display:block;overflow-x:auto}}
+.fc{min-height:220px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border:1px solid var(--line);border-radius:14px;background:#fff;padding:22px;cursor:pointer;user-select:none}
+.fc .term{font-size:30px;font-weight:700}.fc .exp{font-size:19px;font-weight:600;margin-bottom:8px}.fc .meaning{font-size:16.5px;max-width:560px}
+.tick{display:flex;gap:10px;align-items:flex-start;padding:6px 0;border-bottom:1px solid #eef1f7}.tick input{margin-top:5px;width:18px;height:18px}
+.done{color:var(--muted);text-decoration:line-through}
+.pdfs,.toplink{margin:8px 0}.pdfs a,.toplink a{color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.grid a{display:block;border:1px solid var(--line);border-radius:12px;padding:14px;background:#fff;color:var(--ink);text-decoration:none}
+.grid a:hover{border-color:var(--accent)}
+
+</style>
+</head>
+<body>
+<header><h1>Test-Day Checklist<br><span style="font-weight:400;font-size:13px;opacity:.85">CompTIA Security+ SY0-801 Exam Prep 2027 and 2028, by Michael J. Tremeer</span></h1></header>
+<main id="app">
+<p class="print-only muted">CompTIA Security+ SY0-801 Exam Prep 2027 and 2028, by Michael J. Tremeer</p>
+<div class="card"><h2>Appendix D: Test-Day Checklist</h2>
+<p>Tick each line as you go. The rules below were checked against the exam owner's candidate ID policy and online testing guidelines on 20 November 2026. Rules change, so read the official candidate pages again in the week before your exam, and follow your appointment confirmation if it says something different.</p>
+<p><strong>Key Point:</strong> most exams that end badly on the day end for reasons that have nothing to do with security knowledge: the wrong ID, a name that does not match, a late start, or a broken online testing rule. Every line below removes one of those risks.</p>
+<h3>One week before</h3>
+<label class="tick"><input type="checkbox" data-k="0"><span>Check the exam code on your booking: <strong>SY0-801</strong>. Make sure it matches what you studied.</span></label>
+<label class="tick"><input type="checkbox" data-k="1"><span>Check your ID now, not on the morning. Plan to bring <strong>two original, unexpired IDs</strong>: a primary government-issued ID with your photo (for example a passport or a plastic driver's license) and a secondary ID with your name and signature, or your name and a recent photo. Expired IDs, copies and digital IDs are not accepted. Bringing two is the safe choice; check the exam owner's current ID rules for your country and for your testing method (test center or online) before the day.</span></label>
+<label class="tick"><input type="checkbox" data-k="2"><span>Check that your <strong>first and last name match exactly</strong> on both IDs and on your exam registration. Fix any difference with the test provider well before the day; names cannot be changed at check-in.</span></label>
+<label class="tick"><input type="checkbox" data-k="3"><span>If you test at a center outside the country that issued your ID, check the rule for international candidates (usually your passport plus a secondary ID).</span></label>
+<label class="tick"><input type="checkbox" data-k="4"><span>Testing online? Run the official <strong>system test</strong> on the same computer and the same network you will use on the day. Use a personal computer, not a virtual machine, on a home network, not a corporate network or a VPN. Check that the camera, microphone and speakers work and that the connection meets the stated minimum speed.</span></label>
+<label class="tick"><input type="checkbox" data-k="5"><span>Testing online? Choose a private, quiet, well-lit room with a door. Public places are not allowed.</span></label>
+<label class="tick"><input type="checkbox" data-k="6"><span>Need an accommodation (for example extra time or a break for a medical reason)? It must be approved <strong>before</strong> you schedule. It cannot be added once the exam starts.</span></label>
+<label class="tick"><input type="checkbox" data-k="7"><span>Take one last full practice exam under exam conditions: 90 questions, 90 minutes, no notes. Reread the chapters for any domain below your target.</span></label>
+<h3>The night before</h3>
+<label class="tick"><input type="checkbox" data-k="8"><span>Lay out both IDs and your appointment confirmation.</span></label>
+<label class="tick"><input type="checkbox" data-k="9"><span>Test center: confirm the address, the travel time and parking. Plan to arrive <strong>at least 15 minutes early</strong>, and more if the route is new to you.</span></label>
+<label class="tick"><input type="checkbox" data-k="10"><span>Online: clear the desk and the room now. Remove books, notes, paper, pens, extra screens and devices. Wipe any whiteboard in the room. Disconnect a second monitor.</span></label>
+<label class="tick"><input type="checkbox" data-k="11"><span>Online: restart the computer, install pending updates, then turn off automatic updates and anything that might pop up during the exam.</span></label>
+<label class="tick"><input type="checkbox" data-k="12"><span>Skim Appendix A and Appendix B once. Do not start new topics.</span></label>
+<label class="tick"><input type="checkbox" data-k="13"><span>Sleep. A rested mind reads scenarios more carefully than a tired one that studied an extra hour.</span></label>
+<h3>The morning of the exam</h3>
+<label class="tick"><input type="checkbox" data-k="14"><span>Eat something light and drink water, but not so much that you need a break. <strong>Plan on no breaks.</strong> Online exams allow none without an approved accommodation, and at a test center the clock keeps running. Ask the staff at check-in what their break rule is.</span></label>
+<label class="tick"><input type="checkbox" data-k="15"><span>Use the restroom before check-in.</span></label>
+<label class="tick"><input type="checkbox" data-k="16"><span>Test center: leave bags, phone, watch, notes and food in the storage the center provides (ask whether there are lockers). You will be photographed and asked for a signature.</span></label>
+<label class="tick"><input type="checkbox" data-k="17"><span>Online: begin check-in up to <strong>30 minutes before</strong> your appointment. If you are more than <strong>15 minutes late</strong>, you will not be allowed to test.</span></label>
+<label class="tick"><input type="checkbox" data-k="18"><span>Online: put your phone, watch, headphones and any smart device out of arm's reach. Keep your face and ears visible: no hats, hoods or earbuds. Be fully dressed. Keep people and pets out of the room for the whole session.</span></label>
+<label class="tick"><input type="checkbox" data-k="19"><span>Online: take the photos of your testing space when asked, and follow the greeter's instructions for the room scan.</span></label>
+<h3>During the exam</h3>
+<label class="tick"><input type="checkbox" data-k="20"><span>Read the short tutorial at the start. It shows how the screens work and whether you can flag questions and go back.</span></label>
+<label class="tick"><input type="checkbox" data-k="21"><span>Use the time plan from Part 6: about one minute per multiple choice question.</span></label>
+<p>  - Look at each PBQ briefly. If it looks long, flag it and move on.</p>
+<p>  - Answer every multiple choice question in a first pass, and flag the ones you are unsure of.</p>
+<p>  - Go back to the flagged PBQs. Leave at least 15 minutes for them.</p>
+<p>  - Use any time left on your flagged multiple choice questions.</p>
+<label class="tick"><input type="checkbox" data-k="22"><span>Answer every question. A blank answer cannot score.</span></label>
+<label class="tick"><input type="checkbox" data-k="23"><span>Read the last sentence of each question first: it tells you what is being asked (the BEST, the FIRST, or choose two).</span></label>
+<label class="tick"><input type="checkbox" data-k="24"><span>For a PBQ, use the five steps: read the goal, list the facts, rule out, place or answer, check against the goal.</span></label>
+<label class="tick"><input type="checkbox" data-k="25"><span>Online: stay seated, stay quiet, and keep your eyes on the screen. Do not read questions aloud. Use only the built-in digital whiteboard for notes; paper is not allowed.</span></label>
+<label class="tick"><input type="checkbox" data-k="26"><span>Stuck or anxious? Take a breathing reset: breathe in for four counts, hold for four, out for four, hold for four, three times. Then reread the question slowly.</span></label>
+<label class="tick"><input type="checkbox" data-k="27"><span>Do not photograph, copy or share anything from the exam, including your result screen.</span></label>
+<h3>After the exam</h3>
+<label class="tick"><input type="checkbox" data-k="28"><span>Your score appears at the end. The pass mark is 750 on a scale of 100 to 900.</span></label>
+<label class="tick"><input type="checkbox" data-k="29"><span>Online: stay seated for the short survey and score screen, then close the online testing software fully before you stand up.</span></label>
+<label class="tick"><input type="checkbox" data-k="30"><span>Passed: follow the instructions in your score report to claim your certification in your exam owner account.</span></label>
+<label class="tick"><input type="checkbox" data-k="31"><span>Not this time: note the areas your score report flags, reread those chapters, retake two practice exams and book again. Check the exam owner's retake policy before you book.</span></label>
+<label class="tick"><input type="checkbox" data-k="32"><span>Record your result in the score tracker.</span></label>
+<p><strong>Remember It:</strong> <strong>I</strong>D, <strong>T</strong>ime, <strong>R</strong>oom, <strong>R</strong>ules. Two matching IDs, early arrival or check-in, a clean room or a cleared pocket, and no breaks, no notes and no talking.</p><div class="row noprint" style="margin-top:12px"><button onclick="window.print()">Print</button><button id="clear">Untick all</button></div><p class="noprint pdfs">Ready-made PDF: <a href="../printables/test_day_checklist_letter.pdf">US Letter</a> or <a href="../printables/test_day_checklist_a4.pdf">A4</a></p></div>
+</main>
+<footer>Independent study material. Not affiliated with or endorsed by CompTIA. CompTIA and Security+ are trademarks of CompTIA.<span class="noprint"><br>Your progress stays in this browser only. Nothing is sent anywhere.</span></footer>
+<script>
+const store = {
+  get(k, d){ try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch(e){ return d; } },
+  set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
+};
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const K = "sy0801_checklist";
+document.querySelectorAll("input[data-k]").forEach(b => { const s = store.get(K, {}); b.checked = !!s[b.dataset.k]; b.nextElementSibling.className = b.checked ? "done" : "";
+  b.onchange = () => { const s = store.get(K, {}); s[b.dataset.k] = b.checked; store.set(K, s); b.nextElementSibling.className = b.checked ? "done" : ""; }; });
+document.getElementById("clear").onclick = () => { store.set(K, {}); document.querySelectorAll("input[data-k]").forEach(b => { b.checked = false; b.nextElementSibling.className = ""; }); };
+</script>
+</body>
+</html>
