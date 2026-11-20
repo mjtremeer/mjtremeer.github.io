@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Online Exam Simulator Demo: CompTIA Security+ SY0-801 Exam Prep</title>
+<style>
+:root{--ink:#14213d;--muted:#5b6475;--bg:#f6f7fb;--card:#fff;--line:#d9dde7;--accent:#0f766e;--accent2:#e9f5f3;--warn:#b45309;--bad:#b42318;--good:#067647;--flag:#7c3aed}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+header{background:var(--ink);color:#fff;padding:12px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:sticky;top:0;z-index:5}
+header h1{font-size:17px;margin:0;font-weight:650;flex:1;min-width:200px}
+#clock{font:600 20px/1 ui-monospace,Consolas,monospace;padding:6px 10px;border-radius:8px;background:#ffffff1a}
+#clock.low{background:var(--warn)}
+main{max-width:980px;margin:0 auto;padding:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px}
+h2{font-size:22px;margin:0 0 10px}
+h3{font-size:17px;margin:18px 0 8px}
+button{font:inherit;border-radius:8px;border:1px solid var(--line);background:#fff;color:var(--ink);padding:9px 14px;cursor:pointer}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+button:disabled{opacity:.45;cursor:default}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #0f766e66;outline-offset:2px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.mode{border:1px solid var(--line);border-radius:12px;padding:16px;background:#fff}
+.mode h3{margin-top:0}
+.muted{color:var(--muted);font-size:14px}
+select,input[type=number]{font:inherit;padding:7px 9px;border-radius:8px;border:1px solid var(--line);background:#fff}
+.qhead{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:14px;margin-bottom:8px}
+.stem{font-size:17px;margin:0 0 14px}
+.opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0;cursor:pointer;background:#fff}
+.opt:hover{border-color:var(--accent)}
+.opt input{margin-top:5px}
+.opt.right{border-color:var(--good);background:#ecfdf3}
+.opt.wrong{border-color:var(--bad);background:#fef3f2}
+.why{font-size:14.5px;margin:4px 0 0}
+table{border-collapse:collapse;width:100%;margin:8px 0;font-size:15px}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:#eef1f7}
+.pbqsel{min-width:150px;margin:2px 0}
+.part-ok{color:var(--good);font-weight:600}.part-bad{color:var(--bad);font-weight:600}
+.nav{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.nav button{width:42px;padding:6px 0;font-size:14px}
+.nav .ans{background:var(--accent2);border-color:var(--accent)}
+.nav .cur{outline:3px solid var(--ink)}
+.nav .flg{box-shadow:inset 0 -4px 0 var(--flag)}
+.badge{display:inline-block;font-size:12.5px;padding:2px 8px;border-radius:99px;background:#eef1f7;color:var(--ink)}
+.flagged{background:#f3e8ff;color:var(--flag)}
+.bar{height:10px;background:#eef1f7;border-radius:99px;overflow:hidden;min-width:120px}
+.bar span{display:block;height:100%;background:var(--accent)}
+.bar span.low{background:var(--warn)}
+.verdict{font-weight:700}
+.right-t{color:var(--good)}.wrong-t{color:var(--bad)}
+footer{max-width:980px;margin:0 auto;padding:10px 18px 30px;color:var(--muted);font-size:13px}
+.hidden{display:none}
+.explain{border-left:4px solid var(--accent);background:var(--accent2);padding:10px 12px;border-radius:0 8px 8px 0;margin-top:12px}
+.mode.picked{outline:3px solid var(--accent);outline-offset:2px}
+.picknote{font-weight:600;color:var(--accent);margin:6px 0 8px}
+.mode .row>label{min-width:0;max-width:100%}
+@media (max-width:600px){main{padding:10px}.card{padding:14px}header h1{font-size:15px}.nav button{width:38px}}
+select{max-width:100%}
+.locked h2{margin-bottom:6px}.locklist{list-style:none;padding:0;margin:12px 0}.locklist li{display:flex;gap:10px;align-items:center;padding:10px 12px;margin:6px 0;border:1px dashed #c3c8d4;border-radius:10px;background:#f1f2f5;color:#8a91a0}.locklist .lk{font-size:18px;filter:grayscale(1);opacity:.75}.unlock{font-weight:600;margin-top:14px}@media (max-width:600px){table{display:block;overflow-x:auto;max-width:100%}.pbqsel{min-width:0;width:100%;font-size:14px}td,th{padding:6px}.nav button{width:36px}}
+.intro li{margin:4px 0}
+</style>
+</head>
+<body>
+<header><h1>Online Exam Simulator: 10-question demo<br><span style="font-weight:400;font-size:13px;opacity:.85">CompTIA Security+ SY0-801 Exam Prep 2027 and 2028, by Michael J. Tremeer</span></h1><div id="clock" class="hidden" aria-live="polite"></div></header>
+<main id="app"></main>
+<footer>Independent study material. Not affiliated with or endorsed by CompTIA. CompTIA and Security+ are trademarks of CompTIA.<br>Every question is original and none is taken from the real exam. Scores are percentages of correct answers, not the exam owner's scaled score of 100 to 900. Nothing you answer is saved or sent anywhere.</footer>
+<script>
+const BANK = [{"id":"C01-Q1","set":"chapter_check","number":1,"domain":1,"objective":"1.1","type":"single","stem":"A company cannot install security updates on an old lab instrument because the maker no longer supports it. The security team places the instrument on its own network segment that only one workstation can reach. Which control type is this?","options":{"A":"Directive","B":"Compensating","C":"Deterring","D":"Corrective"},"answer":["B"],"explain":{"A":"Wrong. A directive control tells people what to do, such as a policy. Network isolation is a technical safeguard, not an instruction.","B":"Right. The normal control (patching) cannot be used, so the team uses a different control (isolation) that gives comparable protection. That is a compensating control.","C":"Wrong. A deterring control discourages an attacker, such as a warning sign. Segmentation does more than discourage: it limits who can reach the device.","D":"Wrong. A corrective control repairs damage after an incident. Nothing has gone wrong yet; the isolation is put in place in advance."}},{"id":"E9-Q001","set":"exam9","number":1,"domain":1,"objective":"1.3","type":"pbq","stem":"Brackley Surveyors sends signed and encrypted survey reports to a client, Norcote Homes. For each step in the exhibit, choose the key that is used. Use every key once.","answer":{"1":"D","2":"B","3":"F","4":"A","5":"G","6":"C","7":"E"},"explain":{"1":"Right. Bulk data is encrypted with a fast symmetric key, such as a random AES session key; this is hybrid encryption.","2":"Right. To send the session key so only Norcote can recover it, Brackley encrypts it with Norcote's public key.","3":"Right. Only Norcote's private key can unlock what was encrypted with Norcote's public key.","4":"Right. A signature is made with the signer's own private key, which only Brackley holds.","5":"Right. Anyone checks a signature with the signer's public key, here Brackley's.","6":"Right. A certificate is signed by the CA, so it is checked with the issuing CA's public key, back along the chain of trust.","7":"Right. Key escrow keeps a protected copy of encryption keys so that data can be recovered when the key holder leaves."},"exhibit":"| # | Step |\n|---|---|\n| 1 | Brackley's software encrypts the large report file quickly before sending it |\n| 2 | Brackley's software protects the key from step 1 so that only Norcote can recover it |\n| 3 | Norcote's software recovers the key from step 1 |\n| 4 | Brackley's software signs the hash of the report |\n| 5 | Norcote's software checks Brackley's signature on the report |\n| 6 | Norcote's software checks that Brackley's certificate was really issued by the certificate authority |\n| 7 | A surveyor who encrypted archived reports with her own key pair has left, and Brackley's IT team must still open them |\n\nKeys: A. Brackley's private key; B. Norcote's public key; C. The issuing certificate authority's public key; D. A random symmetric session key; E. An escrowed copy of the leaver's private key; F. Norcote's private key; G. Brackley's public key"},{"id":"C08-Q1","set":"chapter_check","number":1,"domain":2,"objective":"2.5","type":"single","stem":"Logs show one failed login each on 400 different accounts within an hour, all from the same IP address, each using the password Winter2026!. Which attack is this?","options":{"A":"Brute force","B":"Password spraying","C":"User enumeration","D":"Replay"},"answer":["B"],"explain":{"A":"Wrong. Brute force tries many passwords against one account.","B":"Right. One common password tried against many accounts, slowly, to avoid lockouts, is password spraying.","C":"Wrong. Enumeration finds valid usernames; here, a password is being tried against known accounts.","D":"Wrong. Replay reuses captured authentication data; none was captured."}},{"id":"E7-Q079","set":"exam7","number":79,"domain":2,"objective":"2.4","type":"multi","stem":"A security review of Pellbridge Telecom lists five findings. Which two are cryptographic vulnerabilities? (Choose two.)","options":{"A":"A staff member installed an unapproved file sharing app","B":"The login form accepts SQL commands typed into the username field","C":"The certificate on the customer portal expired three months ago","D":"Encryption keys are made with a predictable random number generator","E":"An old file server is no longer supported by its vendor"},"answer":["C","D"],"explain":{"A":"Wrong. That is shadow IT, not a cryptographic flaw.","B":"Wrong. That is an injection flaw in the application, not in its cryptography.","C":"Right. Expired certificates where trust matters are a cryptographic weakness: users learn to click through warnings and trust breaks.","D":"Right. Poor random number generation makes keys guessable, which is a cryptographic weakness.","E":"Wrong. That is an unsupported system, a different vulnerability type."}},{"id":"C12-Q2","set":"chapter_check","number":2,"domain":3,"objective":"3.3","type":"single","stem":"A payment system replaces each card number with a random value and keeps the real numbers in a separate secure vault. Which method is this?","options":{"A":"Hashing","B":"Masking","C":"Tokenization","D":"Data transpose"},"answer":["C"],"explain":{"A":"Wrong. A hash cannot be mapped back to the card number.","B":"Wrong. Masking hides part of a value on display; the system still stores the real value.","C":"Right. Replacing the value with a meaningless token and keeping the mapping in a vault is tokenization.","D":"Wrong. Transposing rearranges data; it does not replace it with a token."}},{"id":"E8-Q078","set":"exam8","number":78,"domain":3,"objective":"3.1","type":"single","stem":"Six county fire services must all meet the same emergency services data rules. They agree to share one cloud environment built and run only for them, with costs split six ways. Which deployment model is this?","options":{"A":"Hybrid cloud","B":"Community cloud","C":"Public cloud","D":"Private cloud"},"answer":["B"],"explain":{"A":"Wrong. A hybrid cloud links on-premises or private systems with a public cloud; this is one shared environment.","B":"Right. A community cloud is shared by several organizations with common needs, such as the same compliance rules, and used only by them.","C":"Wrong. A public cloud is open to any customer, not built for one group.","D":"Wrong. A private cloud serves a single organization; here six share it."}},{"id":"C18-Q2","set":"chapter_check","number":2,"domain":4,"objective":"4.5","type":"single","stem":"A user wants a printing website to read photos from their cloud storage without giving the website their password. Which standard is designed for this?","options":{"A":"SAML","B":"LDAP","C":"OAuth","D":"Kerberos"},"answer":["C"],"explain":{"A":"Wrong. SAML mainly provides single sign-on assertions.","B":"Wrong. LDAP queries directories.","C":"Right. OAuth 2.0 is an authorization framework that grants limited access with tokens instead of sharing passwords.","D":"Wrong. Kerberos is ticket-based authentication within a domain."}},{"id":"E7-Q062","set":"exam7","number":62,"domain":4,"objective":"4.8","type":"single","stem":"After a breach of an internet-facing server at Cotswold Learning, investigators want to know whether the exploited flaw was already known before the attack. Which data source should they check first?","options":{"A":"The building's physical access logs","B":"The staff onboarding training records","C":"Earlier vulnerability scan reports","D":"Surveillance footage of the server room"},"answer":["C"],"explain":{"A":"Wrong. Physical access logs record door use, not vulnerabilities.","B":"Wrong. Training records do not list server flaws.","C":"Right. Vulnerability scans are an investigation data source: earlier reports show whether the flaw was known and when.","D":"Wrong. Footage shows physical access, not known software flaws."}},{"id":"C23-Q2","set":"chapter_check","number":2,"domain":5,"objective":"5.2","type":"single","stem":"An event has an SLE of $20,000 and is expected once every four years. What is the ALE?","options":{"A":"$80,000","B":"$20,000","C":"$5,000","D":"$4,000"},"answer":["C"],"explain":{"A":"Wrong. This multiplies by 4 instead of by the ARO.","B":"Wrong. This ignores the ARO.","C":"Right. ARO is 1/4 = 0.25, so ALE = $20,000 x 0.25 = $5,000.","D":"Wrong. This would need an ARO of 0.2."}},{"id":"E8-Q064","set":"exam8","number":64,"domain":5,"objective":"5.4","type":"single","stem":"A customer of Hayle Outdoor writes: Keep my account, but stop using my data to send me marketing. Which privacy right is she using?","options":{"A":"A legal hold, which preserves her data for a court case","B":"The right to erasure, which deletes all of her data","C":"The right to correction, which fixes data that is wrong","D":"The right to object, stopping processing such as marketing"},"answer":["D"],"explain":{"A":"Wrong. A legal hold is a duty to preserve data, not a customer right.","B":"Wrong. She wants to keep her account, so she is not asking for erasure.","C":"Wrong. She does not say any data is wrong.","D":"Right. Processing prevention (the right to object) lets a person have certain processing, such as direct marketing, stopped while the relationship continues."}}];
+const DEMO_MINUTES = 10;
+const LOCKED_HTML = "<div class=\"card locked\" id=\"locked\"><h2>Locked: the full simulator and every extra</h2><p class=\"muted\">The demo ends here. This is what the book unlocks:</p><ul class=\"locklist\"><li><span class=\"lk\" aria-hidden=\"true\">&#128274;</span><span>All 10 full practice exams (900 questions)</span></li><li><span class=\"lk\" aria-hidden=\"true\">&#128274;</span><span>Unlimited new random exams</span></li><li><span class=\"lk\" aria-hidden=\"true\">&#128274;</span><span>Timed exam mode</span></li><li><span class=\"lk\" aria-hidden=\"true\">&#128274;</span><span>Study mode</span></li><li><span class=\"lk\" aria-hidden=\"true\">&#128274;</span><span>Domain drills</span></li><li><span class=\"lk\" aria-hidden=\"true\">&#128274;</span><span>Interactive PBQ practice</span></li><li><span class=\"lk\" aria-hidden=\"true\">&#128274;</span><span>220 flashcards</span></li><li><span class=\"lk\" aria-hidden=\"true\">&#128274;</span><span>6 audio lessons (how the exam works plus one per domain)</span></li><li><span class=\"lk\" aria-hidden=\"true\">&#128274;</span><span>The 6-week planner and score tracker</span></li></ul><p class=\"unlock\">Unlock everything with the book CompTIA Security+ SY0-801 Exam Prep 2027 and 2028 by Michael J. Tremeer. Already have the book? Scan the code at the start of Part 7.</p></div>";
+const DOMAINS = {1:"General Security Concepts",2:"Threats, Vulnerabilities, and Attacks",3:"Security Architecture",4:"Security Operations",5:"Security Program Management and Oversight"};
+const WEIGHT = {1:16,2:24,3:19,4:27,5:14};
+const MIX = {1:14,2:22,3:17,4:24,5:13};
+const CHAPTERS = {1:"1 to 3",2:"4 to 9",3:"10 to 13",4:"14 to 21",5:"22 to 27"};
+const app = document.getElementById("app"), clockEl = document.getElementById("clock");
+let S = null, timer = null;
+
+// ---------- helpers ----------
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const inline = s => esc(s).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+function md(text){
+  if (!text) return "";
+  const lines = String(text).split("\n"); let out = "", i = 0;
+  while (i < lines.length){
+    const l = lines[i];
+    if (/^\s*\|/.test(l)){
+      const rows = []; while (i < lines.length && /^\s*\|/.test(lines[i])) rows.push(lines[i++]);
+      const cells = r => r.trim().replace(/^\||\|$/g, "").split("|").map(c => c.trim());
+      out += "<table>"; rows.forEach((r, k) => { if (/^\s*\|[\s|:-]+\|\s*$/.test(r)) return; const tag = k === 0 ? "th" : "td"; out += "<tr>" + cells(r).map(c => `<${tag}>${inline(c)}</${tag}>`).join("") + "</tr>"; }); out += "</table>";
+      continue;
+    }
+    if (/^\s*[-*] /.test(l)){ out += "<ul>"; while (i < lines.length && /^\s*[-*] /.test(lines[i])) out += "<li>" + inline(lines[i++].replace(/^\s*[-*] /, "")) + "</li>"; out += "</ul>"; continue; }
+    if (l.trim() === ""){ i++; continue; }
+    out += "<p>" + inline(l) + "</p>"; i++;
+  }
+  return out;
+}
+function shuffle(a){ a = a.slice(); for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+const stripRW = s => s.replace(/^(Right|Wrong)\.\s*/, "");
+const fmtTime = s => { s = Math.max(0, s); const m = Math.floor(s / 60), r = s % 60; return `${m}:${String(r).padStart(2, "0")}`; };
+
+// PBQ: choice groups are the last lines of the exhibit, like "Terms: A. x; B. y"
+function pbqGroups(q){
+  const groups = [];
+  q.exhibit.split("\n").forEach(line => {
+    const m = line.match(/^([A-Za-z][A-Za-z ()]*):\s*(.+)$/);
+    if (!m || /^\|/.test(line)) return;
+    const opts = m[2].split(/;\s*/).map(p => p.match(/^([A-Z])\.\s*(.+?)\.?$/)).filter(Boolean).map(x => ({k:x[1], t:x[2]}));
+    if (opts.length >= 2) groups.push({label:m[1], opts});
+  });
+  return groups;
+}
+function pbqKeys(q){ return Object.keys(q.answer).sort((a, b) => (+a) - (+b)); }
+function pbqParts(q, key){ return String(q.answer[key]).split(/,\s*/); }
+function exhibitBody(q){ return q.exhibit.split("\n").filter(l => !(/^[A-Za-z][A-Za-z ()]*:\s*[A-Z]\.\s/.test(l))).join("\n"); }
+
+// ---------- demo start ----------
+function home(){
+  stopClock(); S = null;
+  app.innerHTML = `
+  <div class="card intro"><h2>Try the Online Exam Simulator: 10 questions</h2>
+  <p>This demo works exactly like the full simulator, with ${BANK.length} questions instead of 90:</p>
+  <ul><li>Two questions from each of the five exam domains, in domain order, including one performance-based (PBQ-style) task and one choose-two question.</li>
+  <li>${DEMO_MINUTES} minutes on the clock, the same pace as the real exam: one minute a question.</li>
+  <li>Flag any question for review, move freely between questions, then review before you finish.</li>
+  <li>At the end: your score by domain and a full explanation of why each option is right or wrong.</li></ul>
+  <div class="row" style="margin-top:12px"><button class="primary" id="goDemo">Start the 10-question demo</button></div></div>`;
+  document.getElementById("goDemo").onclick = () => start(BANK.slice(), false, "Demo");
+}
+
+// ---------- session ----------
+function start(qs, study, mode){
+  S = {qs, study, mode, i:0, ans:{}, flag:{}, checked:{}, done:false, end: study ? null : Date.now() + DEMO_MINUTES * 60 * 1000};
+  if (!study) startClock(); else stopClock();
+  render(); window.scrollTo(0, 0);
+}
+function startClock(){ stopClock(); clockEl.classList.remove("hidden"); tick(); timer = setInterval(tick, 1000); }
+function stopClock(){ if (timer) clearInterval(timer); timer = null; clockEl.classList.add("hidden"); clockEl.classList.remove("low"); }
+function tick(){ if (!S || !S.end) return; const left = Math.round((S.end - Date.now()) / 1000); clockEl.textContent = fmtTime(left); clockEl.classList.toggle("low", left <= 600); if (left <= 0){ stopClock(); finish(true); } }
+
+function isAnswered(q){ const a = S.ans[q.id]; if (!a) return false; if (q.type === "pbq") return pbqKeys(q).every(k => pbqParts(q, k).every((_, j) => a[k + "|" + j])); if (q.type === "multi") return a.length === q.answer.length; return a.length === 1; }
+function grade(q){
+  const a = S.ans[q.id];
+  if (q.type === "pbq"){ let ok = 0, tot = 0; pbqKeys(q).forEach(k => pbqParts(q, k).forEach((p, j) => { tot++; if (a && a[k + "|" + j] === p) ok++; })); return {right: ok === tot, ok, tot}; }
+  const right = !!a && a.length === q.answer.length && q.answer.every(x => a.includes(x));
+  return {right, ok: right ? 1 : 0, tot: 1};
+}
+
+function render(){
+  if (S.done) return results();
+  const q = S.qs[S.i], a = S.ans[q.id] || (q.type === "pbq" ? {} : []), shown = S.checked[q.id];
+  let body = `<div class="qhead"><span>Question ${S.i + 1} of ${S.qs.length} ${S.flag[q.id] ? '<span class="badge flagged">Flagged</span>' : ""}</span><span>Domain ${q.domain} &middot; Objective ${q.objective}${q.set.startsWith("exam") ? " &middot; Practice Exam " + q.set.slice(4) + (+q.set.slice(4) >= 6 ? " (bonus)" : "") + ", Q" + q.number : q.set === "chapter_check" ? " &middot; Quick Check" : ""}</span></div>`;
+  body += `<div class="stem">${md(q.stem)}</div>`;
+  if (q.type === "pbq"){
+    const groups = pbqGroups(q);
+    body += md(exhibitBody(q));
+    body += `<h3>Your answers</h3><table><tr><th>Item</th>${groups.map(g => `<th>${esc(g.label)}</th>`).join("")}</tr>`;
+    pbqKeys(q).forEach(k => {
+      body += `<tr><td>${esc(k)}</td>`;
+      pbqParts(q, k).forEach((p, j) => {
+        const g = groups[j] || groups[0]; const cur = a[k + "|" + j] || "";
+        body += `<td><select class="pbqsel" data-k="${esc(k)}|${j}" ${shown ? "disabled" : ""} aria-label="Item ${esc(k)} ${esc(g.label)}"><option value="">Choose</option>${g.opts.map(o => `<option value="${o.k}" ${cur === o.k ? "selected" : ""}>${o.k}. ${esc(o.t)}</option>`).join("")}</select>`;
+        if (shown) body += cur === p ? ` <span class="part-ok">Right</span>` : ` <span class="part-bad">Answer: ${esc(p)}</span>`;
+        body += `</td>`;
+      });
+      body += `</tr>`;
+    });
+    body += `</table>`;
+    if (shown) body += `<div class="explain">${pbqKeys(q).map(k => `<p class="why"><strong>${esc(k)}: ${esc(q.answer[k])}.</strong> ${esc(stripRW(q.explain[k] || ""))}</p>`).join("")}</div>`;
+  } else {
+    const multi = q.type === "multi";
+    Object.keys(q.options).sort().forEach(k => {
+      const sel = a.includes(k); let cls = "opt";
+      if (shown){ if (q.answer.includes(k)) cls += " right"; else if (sel) cls += " wrong"; }
+      body += `<label class="${cls}"><input type="${multi ? "checkbox" : "radio"}" name="o" value="${k}" ${sel ? "checked" : ""} ${shown ? "disabled" : ""}><div><strong>${k}.</strong> ${inline(q.options[k])}${shown ? `<p class="why ${q.answer.includes(k) ? "right-t" : "muted"}">${esc(q.explain[k] || "")}</p>` : ""}</div></label>`;
+    });
+  }
+  let btns = `<button id="prev" ${S.i === 0 ? "disabled" : ""}>Previous</button>`;
+  if (!S.study) btns += `<button id="flag">${S.flag[q.id] ? "Unflag" : "Flag for review"}</button>`;
+  if (S.study && !shown) btns += `<button class="primary" id="check" ${isAnswered(q) ? "" : "disabled"}>Check answer</button>`;
+  btns += S.i < S.qs.length - 1 ? `<button ${S.study && !shown ? "" : 'class="primary"'} id="next">Next</button>` : `<button class="primary" id="end">${S.study ? "See my score" : "Review and finish"}</button>`;
+  btns += `<button id="quit" style="margin-left:auto">Quit</button>`;
+  const verdict = shown ? (grade(q).right ? `<p class="verdict right-t">Correct.</p>` : `<p class="verdict wrong-t">Not quite.${q.type === "pbq" ? ` ${grade(q).ok} of ${grade(q).tot} parts right.` : ""}</p>`) : "";
+  app.innerHTML = `<div class="card">${body}${verdict}<div class="row" style="margin-top:16px">${btns}</div></div><div class="card"><div class="muted">Go to question (shaded = answered, purple line = flagged)</div><div class="nav">${S.qs.map((x, j) => `<button data-j="${j}" class="${isAnswered(x) ? "ans" : ""} ${S.flag[x.id] ? "flg" : ""} ${j === S.i ? "cur" : ""}" aria-label="Question ${j + 1}">${j + 1}</button>`).join("")}</div></div>`;
+  // events
+  app.querySelectorAll("input[name=o]").forEach(inp => inp.onchange = () => {
+    if (q.type === "multi"){ let cur = (S.ans[q.id] || []).filter(x => x !== inp.value); if (inp.checked) cur.push(inp.value); if (cur.length > q.answer.length){ inp.checked = false; return; } S.ans[q.id] = cur.sort(); }
+    else S.ans[q.id] = [inp.value];
+    refreshControls(q);
+  });
+  app.querySelectorAll(".pbqsel").forEach(sel => sel.onchange = () => { const cur = S.ans[q.id] || {}; cur[sel.dataset.k] = sel.value; S.ans[q.id] = cur; refreshControls(q); });
+  const on = (id, f) => { const e = document.getElementById(id); if (e) e.onclick = f; };
+  on("prev", () => go(S.i - 1)); on("next", () => go(S.i + 1)); on("end", () => S.study ? finish(false) : review());
+  on("flag", () => { S.flag[q.id] = !S.flag[q.id]; render(); });
+  on("check", () => { S.checked[q.id] = true; render(); });
+  on("quit", () => { if (confirmQuit()) home(); });
+  app.querySelectorAll(".nav button").forEach(b => b.onclick = () => go(+b.dataset.j));
+}
+function confirmQuit(){ return S.done || Object.keys(S.ans).length === 0 || window.confirm("Quit this exam? Your answers will be lost."); }
+function refreshControls(q){
+  const c = document.getElementById("check"); if (c) c.disabled = !isAnswered(q);
+  const nb = app.querySelector(`.nav button[data-j="${S.i}"]`); if (nb) nb.classList.toggle("ans", isAnswered(q));
+}
+function go(j){ if (j < 0 || j >= S.qs.length) return; S.i = j; render(); window.scrollTo(0, 0); }
+
+function review(){
+  const un = S.qs.map((q, j) => isAnswered(q) ? null : j + 1).filter(Boolean), fl = S.qs.map((q, j) => S.flag[q.id] ? j + 1 : null).filter(Boolean);
+  app.innerHTML = `<div class="card"><h2>Review before you finish</h2><p>Answered: ${S.qs.length - un.length} of ${S.qs.length}.</p>
+  <p>${un.length ? `Not answered: ${un.join(", ")}. A blank answer cannot score.` : "Every question has an answer."}</p><p>${fl.length ? `Flagged: ${fl.join(", ")}.` : "No questions flagged."}</p>
+  <div class="row"><button id="back">Back to the questions</button><button class="primary" id="fin">Finish and see my score</button></div>
+  <div class="nav">${S.qs.map((x, j) => `<button data-j="${j}" class="${isAnswered(x) ? "ans" : ""} ${S.flag[x.id] ? "flg" : ""}">${j + 1}</button>`).join("")}</div></div>`;
+  document.getElementById("back").onclick = () => render();
+  document.getElementById("fin").onclick = () => finish(false);
+  app.querySelectorAll(".nav button").forEach(b => b.onclick = () => go(+b.dataset.j));
+}
+
+function finish(timeUp){
+  S.done = true; S.timeUp = timeUp; stopClock();
+  results();
+}
+function summary(){
+  const dom = {}; let right = 0;
+  S.qs.forEach(q => { const g = grade(q); dom[q.domain] = dom[q.domain] || {n:0, r:0}; dom[q.domain].n++; if (g.right){ dom[q.domain].r++; right++; } });
+  const domPct = {}; Object.keys(dom).forEach(d => domPct[d] = Math.round(100 * dom[d].r / dom[d].n));
+  return {right, n: S.qs.length, pct: Math.round(100 * right / S.qs.length), dom, domPct};
+}
+function results(){
+  const r = summary();
+  let h = `<div class="card"><h2>Your demo result: ${r.right} of ${r.n} (${r.pct}%)</h2>${S.timeUp ? `<p class="muted">Time ran out, so the exam was submitted for you.</p>` : ""}
+  <p class="muted">This is a percentage of correct answers, not the exam owner's scaled score. A PBQ counts as correct only if every part is right, which is stricter than the real exam may be. With only two questions a domain this is a taste, not a forecast: the full simulator gives you 90-question exams in the official domain mix.</p>
+  <table><tr><th>Domain</th><th>Exam weight</th><th>Correct</th><th>Score</th><th>Review</th></tr>`;
+  Object.keys(r.dom).sort().forEach(d => { const p = r.domPct[d]; h += `<tr><td>${d}. ${DOMAINS[d]}</td><td>${WEIGHT[d]}%</td><td>${r.dom[d].r} of ${r.dom[d].n}</td><td><div class="row"><div class="bar"><span class="${p < 80 ? "low" : ""}" style="width:${p}%"></span></div>${p}%</div></td><td>${p < 80 ? "Chapters " + CHAPTERS[d] : "On track"}</td></tr>`; });
+  h += `</table><div class="row" style="margin-top:12px"><button class="primary" id="all">See every explanation</button><button id="wrongOnly">Only the questions I missed</button><button id="home">Try the demo again</button></div></div>` + LOCKED_HTML + `<div id="rev"></div>`;
+  app.innerHTML = h;
+  document.getElementById("home").onclick = home;
+  document.getElementById("wrongOnly").onclick = () => showReview(true);
+  document.getElementById("all").onclick = () => showReview(false);
+  window.scrollTo(0, 0);
+}
+function showReview(wrongOnly){
+  const box = document.getElementById("rev"); let h = "";
+  S.qs.forEach((q, j) => {
+    const g = grade(q); if (wrongOnly && g.right) return;
+    const a = S.ans[q.id] || (q.type === "pbq" ? {} : []);
+    h += `<div class="card"><div class="qhead"><span>Question ${j + 1} <span class="verdict ${g.right ? "right-t" : "wrong-t"}">${g.right ? "Correct" : "Missed"}</span></span><span>Objective ${q.objective}</span></div><div class="stem">${md(q.stem)}</div>`;
+    if (q.type === "pbq"){
+      h += md(exhibitBody(q)) + `<table><tr><th>Item</th><th>Your answer</th><th>Correct answer</th><th>Why</th></tr>`;
+      pbqKeys(q).forEach(k => { const mine = pbqParts(q, k).map((_, i) => a[k + "|" + i] || "none").join(", "); h += `<tr><td>${esc(k)}</td><td class="${mine === pbqParts(q, k).join(", ") ? "right-t" : "wrong-t"}">${esc(mine)}</td><td>${esc(q.answer[k])}</td><td>${esc(stripRW(q.explain[k] || ""))}</td></tr>`; });
+      h += `</table>`;
+    } else {
+      Object.keys(q.options).sort().forEach(k => { const sel = a.includes(k), ok = q.answer.includes(k); h += `<div class="opt ${ok ? "right" : sel ? "wrong" : ""}"><div><strong>${k}.</strong> ${inline(q.options[k])}${sel ? ' <span class="badge">Your answer</span>' : ""}<p class="why">${esc(q.explain[k] || "")}</p></div></div>`; });
+    }
+    h += `</div>`;
+  });
+  box.innerHTML = h || `<div class="card"><p>You missed none. Well done.</p></div>`;
+  box.scrollIntoView();
+}
+window.addEventListener("beforeunload", e => { if (S && !S.done && Object.keys(S.ans).length){ e.preventDefault(); e.returnValue = ""; } });
+home();
+</script>
+</body>
+</html>
