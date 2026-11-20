@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Printable Port and Protocol Table: CompTIA Security+ SY0-801 Exam Prep</title>
+<style>
+
+:root{--ink:#14213d;--muted:#5b6475;--bg:#f6f7fb;--card:#fff;--line:#d9dde7;--accent:#0f766e;--accent2:#e9f5f3;--warn:#b45309;--bad:#b42318;--good:#067647;--flag:#7c3aed}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+header{background:var(--ink);color:#fff;padding:12px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:sticky;top:0;z-index:5}
+header h1{font-size:17px;margin:0;font-weight:650;flex:1;min-width:200px}
+#clock{font:600 20px/1 ui-monospace,Consolas,monospace;padding:6px 10px;border-radius:8px;background:#ffffff1a}
+#clock.low{background:var(--warn)}
+main{max-width:980px;margin:0 auto;padding:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px}
+h2{font-size:22px;margin:0 0 10px}
+h3{font-size:17px;margin:18px 0 8px}
+button{font:inherit;border-radius:8px;border:1px solid var(--line);background:#fff;color:var(--ink);padding:9px 14px;cursor:pointer}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+button:disabled{opacity:.45;cursor:default}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #0f766e66;outline-offset:2px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.mode{border:1px solid var(--line);border-radius:12px;padding:16px;background:#fff}
+.mode h3{margin-top:0}
+.muted{color:var(--muted);font-size:14px}
+select,input[type=number]{font:inherit;padding:7px 9px;border-radius:8px;border:1px solid var(--line);background:#fff}
+.qhead{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:14px;margin-bottom:8px}
+.stem{font-size:17px;margin:0 0 14px}
+.opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0;cursor:pointer;background:#fff}
+.opt:hover{border-color:var(--accent)}
+.opt input{margin-top:5px}
+.opt.right{border-color:var(--good);background:#ecfdf3}
+.opt.wrong{border-color:var(--bad);background:#fef3f2}
+.why{font-size:14.5px;margin:4px 0 0}
+table{border-collapse:collapse;width:100%;margin:8px 0;font-size:15px}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:#eef1f7}
+.pbqsel{min-width:150px;margin:2px 0}
+.part-ok{color:var(--good);font-weight:600}.part-bad{color:var(--bad);font-weight:600}
+.nav{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.nav button{width:42px;padding:6px 0;font-size:14px}
+.nav .ans{background:var(--accent2);border-color:var(--accent)}
+.nav .cur{outline:3px solid var(--ink)}
+.nav .flg{box-shadow:inset 0 -4px 0 var(--flag)}
+.badge{display:inline-block;font-size:12.5px;padding:2px 8px;border-radius:99px;background:#eef1f7;color:var(--ink)}
+.flagged{background:#f3e8ff;color:var(--flag)}
+.bar{height:10px;background:#eef1f7;border-radius:99px;overflow:hidden;min-width:120px}
+.bar span{display:block;height:100%;background:var(--accent)}
+.bar span.low{background:var(--warn)}
+.verdict{font-weight:700}
+.right-t{color:var(--good)}.wrong-t{color:var(--bad)}
+footer{max-width:980px;margin:0 auto;padding:10px 18px 30px;color:var(--muted);font-size:13px}
+.hidden{display:none}
+.explain{border-left:4px solid var(--accent);background:var(--accent2);padding:10px 12px;border-radius:0 8px 8px 0;margin-top:12px}
+@media (max-width:600px){main{padding:10px}.card{padding:14px}header h1{font-size:15px}.nav button{width:38px}}
+select{max-width:100%}
+
+.print-only{display:none}
+@media print{header,footer .noprint,.noprint,button{display:none!important}body{background:#fff;font-size:11pt}main{max-width:none;padding:0}.card{border:none;padding:0;margin:0 0 8pt}.print-only{display:block}table{font-size:9.5pt}th,td{padding:3pt 5pt}tr{break-inside:avoid}h2{font-size:15pt}}
+table{display:table}
+select{max-width:100%}
+.row>label{min-width:0;max-width:100%}
+@media (max-width:600px){.wide{display:block;overflow-x:auto}}
+.fc{min-height:220px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border:1px solid var(--line);border-radius:14px;background:#fff;padding:22px;cursor:pointer;user-select:none}
+.fc .term{font-size:30px;font-weight:700}.fc .exp{font-size:19px;font-weight:600;margin-bottom:8px}.fc .meaning{font-size:16.5px;max-width:560px}
+.tick{display:flex;gap:10px;align-items:flex-start;padding:6px 0;border-bottom:1px solid #eef1f7}.tick input{margin-top:5px;width:18px;height:18px}
+.done{color:var(--muted);text-decoration:line-through}
+.pdfs,.toplink{margin:8px 0}.pdfs a,.toplink a{color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.grid a{display:block;border:1px solid var(--line);border-radius:12px;padding:14px;background:#fff;color:var(--ink);text-decoration:none}
+.grid a:hover{border-color:var(--accent)}
+
+</style>
+</head>
+<body>
+<header><h1>Printable Port and Protocol Table<br><span style="font-weight:400;font-size:13px;opacity:.85">CompTIA Security+ SY0-801 Exam Prep 2027 and 2028, by Michael J. Tremeer</span></h1></header>
+<main id="app">
+<p class="print-only muted">CompTIA Security+ SY0-801 Exam Prep 2027 and 2028, by Michael J. Tremeer</p>
+<div class="card"><h2>Ports and protocols for the SY0-801 exam</h2><p class="muted">32 rows, the same table as Appendix B. A different port does not make a protocol secure; encryption and authentication do. <button class="noprint" onclick="window.print()">Print</button></p><p class="noprint pdfs">Ready-made PDF: <a href="ports_letter.pdf">US Letter</a> or <a href="ports_a4.pdf">A4</a></p>
+<table class="wide"><tr><th>Port</th><th>Transport</th><th>Protocol</th><th>What it does</th><th>Secure choice</th><th>Objective</th></tr><tr><td>20, 21</td><td>TCP</td><td>FTP (File Transfer Protocol)</td><td>File transfer: 21 for commands, 20 for data in active mode</td><td>SFTP (22) or FTPS (989, 990)</td><td>3.2, 4.1</td></tr><tr><td>22</td><td>TCP</td><td>SSH (Secure Shell), also SFTP and SCP</td><td>Encrypted remote login, command line and file transfer</td><td>Already encrypted</td><td>3.2</td></tr><tr><td>23</td><td>TCP</td><td>Telnet</td><td>Remote login in clear text</td><td>SSH (22)</td><td>2.4</td></tr><tr><td>25</td><td>TCP</td><td>SMTP (Simple Mail Transfer Protocol)</td><td>Mail relay between mail servers</td><td>STARTTLS on 25; for clients, submission on 587 or 465</td><td>4.1</td></tr><tr><td>49</td><td>TCP</td><td>TACACS+</td><td>Device administration: authentication, authorization and accounting</td><td>Shared secret required; never run unencrypted in production</td><td>1.1</td></tr><tr><td>53</td><td>UDP and TCP</td><td>DNS (Domain Name System)</td><td>Name lookups (UDP); large replies and zone transfers (TCP)</td><td>DNS over TLS (853)</td><td>2.5</td></tr><tr><td>67, 68</td><td>UDP</td><td>DHCP (Dynamic Host Configuration Protocol)</td><td>Hands out IP addresses: server listens on 67, client on 68</td><td>Protect with switch features and monitoring for rogue servers</td><td>2.5</td></tr><tr><td>69</td><td>UDP</td><td>TFTP (Trivial File Transfer Protocol)</td><td>Simple file transfer with no login</td><td>SFTP (22)</td><td>2.4</td></tr><tr><td>80</td><td>TCP</td><td>HTTP</td><td>Web traffic in clear text</td><td>HTTPS (443)</td><td>4.1</td></tr><tr><td>88</td><td>UDP and TCP</td><td>Kerberos</td><td>Ticket-based network authentication</td><td>Authentication protocol</td><td>4.5</td></tr><tr><td>110</td><td>TCP</td><td>POP3 (Post Office Protocol version 3)</td><td>Download mail in clear text</td><td>POP3S (995)</td><td>4.1</td></tr><tr><td>123</td><td>UDP</td><td>NTP (Network Time Protocol)</td><td>Clock synchronization, vital for log timestamps</td><td>NTS (Network Time Security), key setup on TCP 4460</td><td>4.8</td></tr><tr><td>143</td><td>TCP</td><td>IMAP (Internet Message Access Protocol)</td><td>Read mail on the server in clear text</td><td>IMAPS (993)</td><td>4.1</td></tr><tr><td>161</td><td>UDP</td><td>SNMP (Simple Network Management Protocol)</td><td>Manager queries to device agents</td><td>SNMPv3 (authentication and privacy), same port</td><td>4.4</td></tr><tr><td>162</td><td>UDP</td><td>SNMP traps</td><td>Alerts sent by devices to the manager</td><td>SNMPv3, same port (162 is not a &#x27;secure&#x27; port)</td><td>4.4</td></tr><tr><td>389</td><td>TCP</td><td>LDAP (Lightweight Directory Access Protocol)</td><td>Directory lookups and logins</td><td>LDAPS (636) or StartTLS on 389</td><td>4.5</td></tr><tr><td>443</td><td>TCP (UDP for HTTP/3)</td><td>HTTPS (HTTP over TLS)</td><td>Encrypted web traffic</td><td>Already encrypted</td><td>1.3</td></tr><tr><td>445</td><td>TCP</td><td>SMB (Server Message Block)</td><td>File and printer sharing on local networks</td><td>Block at the internet edge; use encrypted SMB inside</td><td>2.4</td></tr><tr><td>465</td><td>TCP</td><td>SMTP submission over implicit TLS</td><td>Mail clients send mail, encrypted from the start</td><td>Already encrypted</td><td>4.1</td></tr><tr><td>500</td><td>UDP</td><td>IKE (Internet Key Exchange) for IPsec</td><td>Sets up IPsec VPN keys</td><td>Part of IPsec</td><td>3.2</td></tr><tr><td>514</td><td>UDP</td><td>Syslog</td><td>Sends log messages to a collector, in clear text</td><td>Syslog over TLS (6514)</td><td>4.4</td></tr><tr><td>587</td><td>TCP</td><td>Mail submission</td><td>Mail clients send mail, usually upgraded with STARTTLS</td><td>465 (implicit TLS)</td><td>4.1</td></tr><tr><td>636</td><td>TCP</td><td>LDAPS (LDAP over TLS)</td><td>Encrypted directory lookups</td><td>Already encrypted</td><td>4.5</td></tr><tr><td>853</td><td>TCP</td><td>DNS over TLS</td><td>Encrypted name lookups</td><td>Already encrypted</td><td>2.5</td></tr><tr><td>989, 990</td><td>TCP</td><td>FTPS (FTP over TLS, implicit)</td><td>Encrypted FTP data (989) and commands (990)</td><td>Already encrypted</td><td>3.2</td></tr><tr><td>993</td><td>TCP</td><td>IMAPS (IMAP over TLS)</td><td>Encrypted mail reading</td><td>Already encrypted</td><td>4.1</td></tr><tr><td>995</td><td>TCP</td><td>POP3S (POP3 over TLS)</td><td>Encrypted mail download</td><td>Already encrypted</td><td>4.1</td></tr><tr><td>1812, 1813</td><td>UDP</td><td>RADIUS</td><td>Authentication (1812) and accounting (1813) for network access; older systems used 1645 and 1646</td><td>Protect the shared secret; use with 802.1X</td><td>4.1</td></tr><tr><td>3389</td><td>TCP and UDP</td><td>RDP (Remote Desktop Protocol)</td><td>Graphical remote desktop</td><td>Never expose to the internet; reach it through a VPN or gateway with MFA</td><td>2.3</td></tr><tr><td>4500</td><td>UDP</td><td>IPsec NAT traversal</td><td>Carries IPsec through NAT devices</td><td>Part of IPsec</td><td>3.2</td></tr><tr><td>5060, 5061</td><td>UDP and TCP (5061 uses TLS)</td><td>SIP (Session Initiation Protocol)</td><td>Sets up voice and video calls; 5061 is SIP over TLS</td><td>5061 (TLS)</td><td>3.2</td></tr><tr><td>6514</td><td>TCP</td><td>Syslog over TLS</td><td>Encrypted log transport</td><td>Already encrypted</td><td>4.4</td></tr></table></div>
+</main>
+<footer>Independent study material. Not affiliated with or endorsed by CompTIA. CompTIA and Security+ are trademarks of CompTIA.<span class="noprint"><br>Your progress stays in this browser only. Nothing is sent anywhere.</span></footer>
+<script>
+const store = {
+  get(k, d){ try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch(e){ return d; } },
+  set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
+};
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+</script>
+</body>
+</html>
