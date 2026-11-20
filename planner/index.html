@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Study Planner: CompTIA Security+ SY0-801 Exam Prep</title>
+<style>
+
+:root{--ink:#14213d;--muted:#5b6475;--bg:#f6f7fb;--card:#fff;--line:#d9dde7;--accent:#0f766e;--accent2:#e9f5f3;--warn:#b45309;--bad:#b42318;--good:#067647;--flag:#7c3aed}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+header{background:var(--ink);color:#fff;padding:12px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:sticky;top:0;z-index:5}
+header h1{font-size:17px;margin:0;font-weight:650;flex:1;min-width:200px}
+#clock{font:600 20px/1 ui-monospace,Consolas,monospace;padding:6px 10px;border-radius:8px;background:#ffffff1a}
+#clock.low{background:var(--warn)}
+main{max-width:980px;margin:0 auto;padding:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px}
+h2{font-size:22px;margin:0 0 10px}
+h3{font-size:17px;margin:18px 0 8px}
+button{font:inherit;border-radius:8px;border:1px solid var(--line);background:#fff;color:var(--ink);padding:9px 14px;cursor:pointer}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+button:disabled{opacity:.45;cursor:default}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #0f766e66;outline-offset:2px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.mode{border:1px solid var(--line);border-radius:12px;padding:16px;background:#fff}
+.mode h3{margin-top:0}
+.muted{color:var(--muted);font-size:14px}
+select,input[type=number]{font:inherit;padding:7px 9px;border-radius:8px;border:1px solid var(--line);background:#fff}
+.qhead{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:14px;margin-bottom:8px}
+.stem{font-size:17px;margin:0 0 14px}
+.opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0;cursor:pointer;background:#fff}
+.opt:hover{border-color:var(--accent)}
+.opt input{margin-top:5px}
+.opt.right{border-color:var(--good);background:#ecfdf3}
+.opt.wrong{border-color:var(--bad);background:#fef3f2}
+.why{font-size:14.5px;margin:4px 0 0}
+table{border-collapse:collapse;width:100%;margin:8px 0;font-size:15px}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:#eef1f7}
+.pbqsel{min-width:150px;margin:2px 0}
+.part-ok{color:var(--good);font-weight:600}.part-bad{color:var(--bad);font-weight:600}
+.nav{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.nav button{width:42px;padding:6px 0;font-size:14px}
+.nav .ans{background:var(--accent2);border-color:var(--accent)}
+.nav .cur{outline:3px solid var(--ink)}
+.nav .flg{box-shadow:inset 0 -4px 0 var(--flag)}
+.badge{display:inline-block;font-size:12.5px;padding:2px 8px;border-radius:99px;background:#eef1f7;color:var(--ink)}
+.flagged{background:#f3e8ff;color:var(--flag)}
+.bar{height:10px;background:#eef1f7;border-radius:99px;overflow:hidden;min-width:120px}
+.bar span{display:block;height:100%;background:var(--accent)}
+.bar span.low{background:var(--warn)}
+.verdict{font-weight:700}
+.right-t{color:var(--good)}.wrong-t{color:var(--bad)}
+footer{max-width:980px;margin:0 auto;padding:10px 18px 30px;color:var(--muted);font-size:13px}
+.hidden{display:none}
+.explain{border-left:4px solid var(--accent);background:var(--accent2);padding:10px 12px;border-radius:0 8px 8px 0;margin-top:12px}
+@media (max-width:600px){main{padding:10px}.card{padding:14px}header h1{font-size:15px}.nav button{width:38px}}
+select{max-width:100%}
+
+.print-only{display:none}
+@media print{header,footer .noprint,.noprint,button{display:none!important}body{background:#fff;font-size:11pt}main{max-width:none;padding:0}.card{border:none;padding:0;margin:0 0 8pt}.print-only{display:block}table{font-size:9.5pt}th,td{padding:3pt 5pt}tr{break-inside:avoid}h2{font-size:15pt}}
+table{display:table}
+select{max-width:100%}
+.row>label{min-width:0;max-width:100%}
+@media (max-width:600px){.wide{display:block;overflow-x:auto}}
+.fc{min-height:220px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border:1px solid var(--line);border-radius:14px;background:#fff;padding:22px;cursor:pointer;user-select:none}
+.fc .term{font-size:30px;font-weight:700}.fc .exp{font-size:19px;font-weight:600;margin-bottom:8px}.fc .meaning{font-size:16.5px;max-width:560px}
+.tick{display:flex;gap:10px;align-items:flex-start;padding:6px 0;border-bottom:1px solid #eef1f7}.tick input{margin-top:5px;width:18px;height:18px}
+.done{color:var(--muted);text-decoration:line-through}
+.pdfs,.toplink{margin:8px 0}.pdfs a,.toplink a{color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.grid a{display:block;border:1px solid var(--line);border-radius:12px;padding:14px;background:#fff;color:var(--ink);text-decoration:none}
+.grid a:hover{border-color:var(--accent)}
+
+</style>
+</head>
+<body>
+<header><h1>Study Planner<br><span style="font-weight:400;font-size:13px;opacity:.85">CompTIA Security+ SY0-801 Exam Prep 2027 and 2028, by Michael J. Tremeer</span></h1></header>
+<main id="app">
+<p class="print-only muted">CompTIA Security+ SY0-801 Exam Prep 2027 and 2028, by Michael J. Tremeer</p>
+<div class="card"><h2>Your study plan</h2><p>Every chapter, every PBQ walk-through and all five practice exams, in an order that works. Day 1 is a Saturday, so the long sessions (about 2 hours) fall on weekends and weekdays take about 1 hour. Start on any Saturday. Tick each day as you finish it; your ticks stay in this browser.</p>
+<div class="row noprint"><label>Plan <select id="len"><option value="6">6 weeks (about 1 hour on weekdays, 2 on weekends)</option><option value="4">4 weeks (about 2 hours on weekdays, 3 on weekends)</option><option value="2">2 weeks (about 4 hours on weekdays, 5 on weekends)</option></select></label>
+<button onclick="window.print()">Print this plan</button><button id="clear">Untick all</button></div><p class="noprint pdfs">6-week plan as a ready-made PDF: <a href="../printables/planner_6_weeks_letter.pdf">US Letter</a> or <a href="../printables/planner_6_weeks_a4.pdf">A4</a></p><p class="muted" id="sum"></p></div><div class="card" id="plan"></div>
+</main>
+<footer>Independent study material. Not affiliated with or endorsed by CompTIA. CompTIA and Security+ are trademarks of CompTIA.<span class="noprint"><br>Your progress stays in this browser only. Nothing is sent anywhere.</span></footer>
+<script>
+const store = {
+  get(k, d){ try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch(e){ return d; } },
+  set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
+};
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const PL = {"S":[["Read How to Use This Book and The Exam in One Page. Take Practice Exam 1 cold: 90 questions, 90 minutes, no notes.",2],["Mark Practice Exam 1 with its score guide and enter it in the score tracker. Read the explanation for every question you missed.",2],["Chapter 1: Security Concepts and the Controls That Deliver Them, with its Quick Check.",1],["Chapter 2: Change Management and Why It Is a Security Process, with its Quick Check.",1],["Chapter 3: Choosing the Right Cryptography, first half (to the end of the encryption levels).",1],["Chapter 3: Choosing the Right Cryptography, second half and its Quick Check. Check the Part 1 Quick Check answers.",1],["Chapter 4: How Threats and Vulnerabilities Are Measured, with its Quick Check.",1],["Chapter 5: Who Attacks and Why, and Chapter 6: The Ways In: Threat Vectors and Sources, with their Quick Checks.",2],["Chapter 7: Weak Spots: Vulnerability Types and Attack Surfaces, and Chapter 8: Reading the Signs of an Attack, with their Quick Checks.",2],["Chapter 9: Security Risks When Using AI Systems, with its Quick Check. Check the Part 2 Quick Check answers.",1],["Chapter 10: Architecture Models and Their Trade-Offs, with its Quick Check.",1],["Chapter 11: Running a Secure Architecture Day to Day, with its Quick Check.",1],["Chapter 12: Protecting Data in Every State, with its Quick Check.",1],["Chapter 13: Staying Up and Coming Back: Resilience and Recovery, with its Quick Check. Check the Part 3 Quick Check answers.",1],["Part 6: read How Performance-Based Questions Work, then PBQ walk-throughs 1 to 8. Try each task before reading the solution.",2],["PBQ walk-throughs 9 to 15. Then work all 15 in the Interactive PBQ practice.",2],["Chapter 14: Mitigation Tools and Techniques in Practice, with its Quick Check.",1],["Chapter 15: Managing Assets from Purchase to Disposal, and Chapter 16: Running Vulnerability Management, with their Quick Checks.",1],["Chapter 17: Alerting and Monitoring, with its Quick Check.",1],["Chapter 18: Identity and Access Management, with its Quick Check.",1],["Chapter 19: Automation, Orchestration and Smart Tools, with its Quick Check.",1],["Take Practice Exam 2, timed. Mark it with its score guide and enter it in the score tracker.",2],["Read every Practice Exam 2 explanation, including the ones you got right. Reread the sections behind your misses.",2],["Chapter 20: Incident Response from Preparation to Lessons Learned, with its Quick Check.",1],["Chapter 21: Using Logs and Data Sources in an Investigation, with its Quick Check. Check the Part 4 Quick Check answers.",1],["Chapter 22: Policies, Standards, Procedures and Plans, and Chapter 23: Managing Risk, with their Quick Checks.",1],["Chapter 24: Third-Party and Vendor Risk, and Chapter 25: Compliance and Privacy, with their Quick Checks.",1],["Chapter 26: Audits, Assessments and Penetration Tests, and Chapter 27: Security Awareness That Changes Behavior, with their Quick Checks. Check the Part 5 Quick Check answers.",1],["Take Practice Exam 3, timed. Mark it and enter it in the score tracker.",2],["Read every Practice Exam 3 explanation. Note your weakest domain in the score tracker.",2],["Reread the recap and Watch Out boxes for your weakest domain's chapters.",1],["Appendix A acronyms with the flashcards: mark each Know it or Not yet.",1],["Appendix B ports and protocols. Print the port table and test yourself from it.",1],["Simulator domain drill on your weakest domain, in study mode.",1],["Listen to the audio lesson for your weakest domain, then redo that domain's Quick Checks.",1],["Take Practice Exam 4, timed. Mark it and enter it in the score tracker.",2],["Read every Practice Exam 4 explanation, including the ones you got right.",2],["Reread the chapters for any domain still under your target in the score tracker.",1],["Interactive PBQ practice: redo any task you did not get fully right.",1],["Flashcards: clear the Not yet pile. Test yourself on the printed port table.",1],["Take Practice Exam 5, timed, and mark it (a longer day, about 2 hours).",2],["Read the Practice Exam 5 explanations. Read Appendix D and print the test-day checklist. Rest before the exam.",1]],"plans":{"6":[[0],[1],[2],[3],[4],[5],[6],[7],[8],[9],[10],[11],[12],[13],[14],[15],[16],[17],[18],[19],[20],[21],[22],[23],[24],[25],[26],[27],[28],[29],[30],[31],[32],[33],[34],[35],[36],[37],[38],[39],[40],[41]],"4":[[0],[1,2],[3,4],[5,6],[7],[8],[9,10],[11,12,13],[14],[15],[16,17],[18,19],[20],[21],[22,23],[24,25,26],[27],[28],[29],[30,31],[32,33],[34,35],[36,37],[38,39],[40],[41],[],[]],"2":[[0,1,2],[3,4,5,6],[7,8],[9,10,11,12],[13,14],[15,16,17],[18,19,20],[21,22,23],[24,25,26,27],[28,29],[30,31,32,33],[34,35],[36,37,38],[39,40,41]]},"wd":["Sat","Sun","Mon","Tue","Wed","Thu","Fri"]};
+function draw(){
+  const k = document.getElementById("len").value, days = PL.plans[k], ticks = store.get("sy0801_plan_" + k, {});
+  let h = "", tot = 0, done = 0;
+  days.forEach((dd, d) => {
+    if (d % 7 === 0) h += `<h3>Week ${d / 7 + 1}</h3>`;
+    const hrs = dd.reduce((a, i) => a + PL.S[i][1], 0); tot += hrs; if (ticks[d]) done++;
+    const txt = dd.length ? dd.map(i => esc(PL.S[i][0])).join(" ") : "Rest day, or catch up.";
+    h += `<label class="tick"><input type="checkbox" data-d="${d}" ${ticks[d] ? "checked" : ""}><span class="${ticks[d] ? "done" : ""}"><strong>Day ${d + 1} (${PL.wd[d % 7]}, about ${hrs || 0} h):</strong> ${txt}</span></label>`;
+  });
+  document.getElementById("plan").innerHTML = h;
+  document.getElementById("sum").textContent = `${days.length} days, about ${tot} hours in all. ${done} of ${days.length} days ticked.`;
+  document.querySelectorAll("#plan input").forEach(b => b.onchange = () => { const t = store.get("sy0801_plan_" + k, {}); t[b.dataset.d] = b.checked; store.set("sy0801_plan_" + k, t); draw(); });
+}
+document.getElementById("len").onchange = draw;
+document.getElementById("clear").onclick = () => { store.set("sy0801_plan_" + document.getElementById("len").value, {}); draw(); };
+draw();
+
+</script>
+</body>
+</html>
